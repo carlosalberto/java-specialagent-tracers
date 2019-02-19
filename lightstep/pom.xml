@@ -8,9 +8,6 @@
   <artifactId>java-specialagent-lightstep</artifactId>
   <version>0.0.1-SNAPSHOT</version>
 
-  <name>java-specialagent-lightstep</name>
-  <url>https://github.com/opentracing-contrib/java-specialagent</url>
-
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.7</maven.compiler.source>
@@ -19,6 +16,17 @@
     <version.lightstep-tracer>0.15.0</version.lightstep-tracer>
     <version.lightstep-tracer-grpc>0.16.1</version.lightstep-tracer-grpc>
   </properties>
+
+  <name>SpecialAgent LightStep Tracer plugin</name>
+  <url>https://github.com/opentracing-contrib/java-specialagent-tracers</url>
+
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
 
   <dependencies>
     <dependency>
@@ -60,6 +68,7 @@
   </dependencies>
 
   <build>
+    <finalName>lightstep</finalName>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
