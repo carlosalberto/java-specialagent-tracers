@@ -61,57 +61,57 @@ public final class TracerParameters {
       .withAccessToken(params.get(ACCESS_TOKEN));
 
     if (params.containsKey(CLOCK_SKEW_CORRECTION))
-      opts = opts.withClockSkewCorrection(toBoolean(params.get(CLOCK_SKEW_CORRECTION)));
+      opts.withClockSkewCorrection(toBoolean(params.get(CLOCK_SKEW_CORRECTION)));
 
     if (params.containsKey(COMPONENT_NAME))
-      opts = opts.withComponentName(params.get(COMPONENT_NAME));
+      opts.withComponentName(params.get(COMPONENT_NAME));
 
     if (params.containsKey(COLLECTOR_HOST)) {
       String value = params.get(COLLECTOR_HOST);
       if (validateNonEmptyString(value))
-        opts = opts.withCollectorHost(value);
+        opts.withCollectorHost(value);
     }
 
     if (params.containsKey(COLLECTOR_PROTOCOL)) {
       String value = params.get(COLLECTOR_PROTOCOL);
       if (validateProtocol(value))
-        opts = opts.withCollectorProtocol(value);
+        opts.withCollectorProtocol(value);
     }
 
     if (params.containsKey(COLLECTOR_PORT)) {
       Integer value = toInteger(params.get(COLLECTOR_PORT));
       if (value != null && value > 0)
-        opts = opts.withCollectorPort(value);
+        opts.withCollectorPort(value);
     }
 
     if (params.containsKey(DEADLINE_MILLIS)) {
       Long value = toLong(params.get(DEADLINE_MILLIS));
       if (value != null)
-        opts = opts.withDeadlineMillis(value);
+        opts.withDeadlineMillis(value);
     }
 
     if (params.containsKey(DISABLE_REPORTING_LOOP))
-      opts = opts.withDisableReportingLoop(toBoolean(params.get(DISABLE_REPORTING_LOOP)));
+      opts.withDisableReportingLoop(toBoolean(params.get(DISABLE_REPORTING_LOOP)));
 
     if (params.containsKey(MAX_BUFFERED_SPANS)) {
       Integer value = toInteger(params.get(MAX_BUFFERED_SPANS));
       if (value != null)
-        opts = opts.withMaxBufferedSpans(value);
+        opts.withMaxBufferedSpans(value);
     }
 
     if (params.containsKey(MAX_REPORTING_INTERVAL_MILLIS)) {
       Integer value = toInteger(params.get(MAX_REPORTING_INTERVAL_MILLIS));
       if (value != null)
-        opts = opts.withMaxReportingIntervalMillis(value);
+        opts.withMaxReportingIntervalMillis(value);
     }
 
     if (params.containsKey(RESET_CLIENT))
-      opts = opts.withResetClient(toBoolean(params.get(RESET_CLIENT)));
+      opts.withResetClient(toBoolean(params.get(RESET_CLIENT)));
 
     if (params.containsKey(VERBOSITY)) {
       Integer value = toInteger(params.get(VERBOSITY));
       if (value != null)
-        opts = opts.withVerbosity(value);
+        opts.withVerbosity(value);
     }
 
     return opts;
