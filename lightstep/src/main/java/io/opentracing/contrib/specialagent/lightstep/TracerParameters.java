@@ -16,7 +16,7 @@ public final class TracerParameters {
   private final static Logger logger = Logger.getLogger(TracerParameters.class.getName());
 
   final static String DEFAULT_CONFIGURATION_FILE_PATH = "tracer.properties";
-  final static String CONFIGURATION_FILE_KEY = "ls.configurationFile";
+  final static String CONFIGURATION_FILE_KEY = "tracer.configurationFile";
 
   final static String HTTP = "http";
   final static String HTTPS = "https";

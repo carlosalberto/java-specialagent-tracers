@@ -5,20 +5,18 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>io.opentracing.contrib</groupId>
-  <artifactId>java-specialagent-lightstep</artifactId>
+  <artifactId>java-specialagent-jaeger</artifactId>
   <version>0.0.1-SNAPSHOT</version>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.7</maven.compiler.source>
     <maven.compiler.target>1.7</maven.compiler.target>
-    <version.tracerresolver>0.1.5</version.tracerresolver>
-    <version.lightstep-tracer>0.15.0</version.lightstep-tracer>
-    <version.lightstep-tracer-grpc>0.16.1</version.lightstep-tracer-grpc>
+    <version.jaeger>0.33.1</version.jaeger>
     <version.javax.annotation>1.3.2</version.javax.annotation>
   </properties>
 
-  <name>SpecialAgent LightStep Tracer plugin</name>
+  <name>SpecialAgent Jaeger Tracer plugin</name>
   <url>https://github.com/opentracing-contrib/java-specialagent-tracers</url>
 
   <licenses>
@@ -31,34 +29,14 @@
 
   <dependencies>
     <dependency>
-      <groupId>io.opentracing.contrib</groupId>
-      <artifactId>opentracing-tracerresolver</artifactId>
-      <version>${version.tracerresolver}</version>
+      <groupId>io.jaegertracing</groupId>
+      <artifactId>jaeger-tracerresolver</artifactId>
+      <version>${version.jaeger}</version>
     </dependency>
     <dependency>
-      <groupId>com.lightstep.tracer</groupId>
-      <artifactId>lightstep-tracer-jre</artifactId>
-      <version>${version.lightstep-tracer}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.lightstep.tracer</groupId>
-      <artifactId>tracer-grpc</artifactId>
-      <version>${version.lightstep-tracer-grpc}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-simple</artifactId>
-      <version>1.7.25</version>
-    </dependency>
-    <dependency>
-      <groupId>io.grpc</groupId>
-      <artifactId>grpc-netty</artifactId>
-      <version>1.14.0</version>
-    </dependency>
-    <dependency>
-      <groupId>io.netty</groupId>
-      <artifactId>netty-tcnative-boringssl-static</artifactId>
-      <version>2.0.12.Final</version>
+      <groupId>io.jaegertracing</groupId>
+      <artifactId>jaeger-thrift</artifactId>
+      <version>${version.jaeger}</version>
     </dependency>
     <dependency>
       <groupId>javax.annotation</groupId>
@@ -74,7 +52,7 @@
   </dependencies>
 
   <build>
-    <finalName>lightstep</finalName>
+    <finalName>jaeger</finalName>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
