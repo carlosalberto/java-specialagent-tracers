@@ -3,6 +3,7 @@ package io.opentracing.contrib.specialagent.lightstep;
 import java.net.MalformedURLException;
 import java.util.logging.Logger;
 import java.util.logging.Level;
+import javax.annotation.Priority;
 
 import io.opentracing.Tracer;
 import io.opentracing.contrib.tracerresolver.TracerFactory;
@@ -10,6 +11,7 @@ import io.opentracing.contrib.tracerresolver.TracerFactory;
 import com.lightstep.tracer.jre.JRETracer;
 import com.lightstep.tracer.shared.Options;
 
+@Priority(1)
 public class LightStepTracerFactory implements TracerFactory {
   private static final Logger logger = Logger.getLogger(LightStepTracerFactory.class.getName());
 
