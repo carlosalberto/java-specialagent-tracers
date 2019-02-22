@@ -14,7 +14,7 @@
     <maven.compiler.target>1.7</maven.compiler.target>
     <version.tracerresolver>0.1.5</version.tracerresolver>
     <version.lightstep-tracer>0.15.0</version.lightstep-tracer>
-    <version.lightstep-tracer-grpc>0.16.1</version.lightstep-tracer-grpc>
+    <version.lightstep-tracer-okhttp>0.16.1</version.lightstep-tracer-okhttp>
     <version.javax.annotation>1.3.2</version.javax.annotation>
   </properties>
 
@@ -42,23 +42,8 @@
     </dependency>
     <dependency>
       <groupId>com.lightstep.tracer</groupId>
-      <artifactId>tracer-grpc</artifactId>
-      <version>${version.lightstep-tracer-grpc}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-simple</artifactId>
-      <version>1.7.25</version>
-    </dependency>
-    <dependency>
-      <groupId>io.grpc</groupId>
-      <artifactId>grpc-netty</artifactId>
-      <version>1.14.0</version>
-    </dependency>
-    <dependency>
-      <groupId>io.netty</groupId>
-      <artifactId>netty-tcnative-boringssl-static</artifactId>
-      <version>2.0.12.Final</version>
+      <artifactId>tracer-okhttp</artifactId>
+      <version>${version.lightstep-tracer-okhttp}</version>
     </dependency>
     <dependency>
       <groupId>javax.annotation</groupId>

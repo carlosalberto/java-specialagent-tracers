@@ -66,13 +66,6 @@ public class LightStepTracerFactoryTest
   }
 
   @Test
-  public void getTracer_withMalformedCollectorHost() {
-    System.setProperty(TracerParameters.COLLECTOR_HOST, "http:::::");
-    tracer = new LightStepTracerFactory().getTracer();
-    assertNull(tracer); // Error when creating.
-  }
-
-  @Test
   public void getTracer_withInvalidCollectorProtocol() {
     System.setProperty(TracerParameters.COLLECTOR_PROTOCOL, "ftp");
     tracer = new LightStepTracerFactory().getTracer();
