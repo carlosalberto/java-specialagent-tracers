@@ -1,9 +1,7 @@
 package io.opentracing.contrib.specialagent.jaeger;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.util.Properties;
-import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -12,8 +10,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 public class TracerParametersTest {
-  final static String SERVICE_NAME_KEY = "JAEGER_SERVICE_NAME";
-
   @Before
   public void beforeTest() {
     Properties systemProps = System.getProperties();
@@ -26,21 +22,38 @@ public class TracerParametersTest {
   @Test
   public void loadParameters_fromConfigurationFile() throws Exception {
     Properties props = new Properties();
-    props.setProperty(SERVICE_NAME_KEY, "MyService");
+    props.setProperty(JaegerTracerFactoryTest.SERVICE_NAME_KEY, "MyService");
     props.setProperty("NOT_RELATED", "SomeValue");
 
     File file = null;
     try {
-      file = File.createTempFile("myconfig", "properties");
+      file = Util.savePropertiesToTempFile(props);
       System.setProperty(TracerParameters.CONFIGURATION_FILE_KEY, file.getAbsolutePath());
 
-      try (FileOutputStream stream = new FileOutputStream(file)) {
-        props.store(stream, "");
-      }
-
       TracerParameters.loadParameters();
-      assertEquals("MyService", System.getProperty(SERVICE_NAME_KEY));
+      assertEquals("MyService", System.getProperty(JaegerTracerFactoryTest.SERVICE_NAME_KEY));
       assertNull(System.getProperty("NOT_RELATED"));
+
+    } finally {
+      if (file != null)
+        file.delete();
+    }
+  }
+
+  @Test
+  public void loadParameters_fromConfigurationFilePreventOverride() throws Exception {
+    Properties props = new Properties();
+    props.setProperty(JaegerTracerFactoryTest.SERVICE_NAME_KEY, "MyService");
+
+    File file = null;
+    try {
+      file = Util.savePropertiesToTempFile(props);
+      System.setProperty(TracerParameters.CONFIGURATION_FILE_KEY, file.getAbsolutePath());
+
+      // The values from the file will only be loaded if there's no System property defined already.
+      System.setProperty(JaegerTracerFactoryTest.SERVICE_NAME_KEY, "MyCustomService");
+      TracerParameters.loadParameters();
+      assertEquals("MyCustomService", System.getProperty(JaegerTracerFactoryTest.SERVICE_NAME_KEY));
 
     } finally {
       if (file != null)
