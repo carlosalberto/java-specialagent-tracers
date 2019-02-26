@@ -6,6 +6,9 @@ import java.util.Properties;
 import org.junit.Before;
 import org.junit.Test;
 
+import io.opentracing.contrib.specialagent.common.Configuration;
+import io.opentracing.contrib.specialagent.common.Utils;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
@@ -27,8 +30,8 @@ public class TracerParametersTest {
 
     File file = null;
     try {
-      file = Util.savePropertiesToTempFile(props);
-      System.setProperty(TracerParameters.CONFIGURATION_FILE_KEY, file.getAbsolutePath());
+      file = Utils.savePropertiesToTempFile(props);
+      System.setProperty(Configuration.CONFIGURATION_FILE_KEY, file.getAbsolutePath());
 
       TracerParameters.loadParameters();
       assertEquals("MyService", System.getProperty(JaegerTracerFactoryTest.SERVICE_NAME_KEY));
@@ -47,8 +50,8 @@ public class TracerParametersTest {
 
     File file = null;
     try {
-      file = Util.savePropertiesToTempFile(props);
-      System.setProperty(TracerParameters.CONFIGURATION_FILE_KEY, file.getAbsolutePath());
+      file = Utils.savePropertiesToTempFile(props);
+      System.setProperty(Configuration.CONFIGURATION_FILE_KEY, file.getAbsolutePath());
 
       // The values from the file will only be loaded if there's no System property defined already.
       System.setProperty(JaegerTracerFactoryTest.SERVICE_NAME_KEY, "MyCustomService");

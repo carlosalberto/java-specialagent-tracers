@@ -24,38 +24,8 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
-  <artifactId>java-specialagent-jaeger</artifactId>
-  <name>SpecialAgent Jaeger Tracer plugin</name>
+  <artifactId>java-specialagent-tracers-common</artifactId>
+  <name>SpecialAgent common Tracers layer</name>
   <url>https://github.com/carlosalberto/java-specialagent-tracers</url>
 
-  <properties>
-    <jaeger.version>0.33.1</jaeger.version>
-  </properties>
-
-  <dependencies>
-    <dependency>
-      <groupId>${project.groupId}</groupId>
-      <artifactId>java-specialagent-tracers-common</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.jaegertracing</groupId>
-      <artifactId>jaeger-tracerresolver</artifactId>
-      <version>${jaeger.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>io.jaegertracing</groupId>
-      <artifactId>jaeger-thrift</artifactId>
-      <version>${jaeger.version}</version>
-    </dependency>
-  </dependencies>
-
-  <build>
-    <finalName>jaeger</finalName>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-shade-plugin</artifactId>
-      </plugin>
-    </plugins>
-  </build>
 </project>

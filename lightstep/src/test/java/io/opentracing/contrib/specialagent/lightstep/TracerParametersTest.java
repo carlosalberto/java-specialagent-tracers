@@ -1,11 +1,13 @@
 package io.opentracing.contrib.specialagent.lightstep;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.util.Properties;
 import java.util.Map;
 
 import org.junit.Test;
+
+import io.opentracing.contrib.specialagent.common.Configuration;
+import io.opentracing.contrib.specialagent.common.Utils;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -40,12 +42,8 @@ public final class TracerParametersTest {
 
     File file = null;
     try {
-      file = File.createTempFile("myconfig", "properties");
-      System.setProperty(TracerParameters.CONFIGURATION_FILE_KEY, file.getAbsolutePath());
-
-      try (FileOutputStream stream = new FileOutputStream(file)) {
-        props.store(stream, "");
-      }
+      file = Utils.savePropertiesToTempFile(props);
+      System.setProperty(Configuration.CONFIGURATION_FILE_KEY, file.getAbsolutePath());
 
       assertValidParameters(TracerParameters.getParameters());
 

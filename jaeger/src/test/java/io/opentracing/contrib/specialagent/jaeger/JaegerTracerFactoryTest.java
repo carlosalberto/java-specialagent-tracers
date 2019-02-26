@@ -9,6 +9,8 @@ import org.junit.Test;
 
 import io.jaegertracing.internal.JaegerTracer;
 import io.opentracing.Tracer;
+import io.opentracing.contrib.specialagent.common.Configuration;
+import io.opentracing.contrib.specialagent.common.Utils;
 
 import static org.junit.Assert.assertTrue;
 
@@ -53,8 +55,8 @@ public class JaegerTracerFactoryTest {
 
     File file = null;
     try {
-      file = Util.savePropertiesToTempFile(props);
-      System.setProperty(TracerParameters.CONFIGURATION_FILE_KEY, file.getAbsolutePath());
+      file = Utils.savePropertiesToTempFile(props);
+      System.setProperty(Configuration.CONFIGURATION_FILE_KEY, file.getAbsolutePath());
 
       tracer = new JaegerTracerFactory().getTracer();
       assertTrue(tracer instanceof JaegerTracer);

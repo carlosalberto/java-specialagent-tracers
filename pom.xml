@@ -23,6 +23,7 @@
   <packaging>pom</packaging>
 
   <modules>
+    <module>common</module>
     <module>jaeger</module>
     <module>lightstep</module>
   </modules>
@@ -70,6 +71,11 @@
 
   <dependencyManagement>
     <dependencies>
+      <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>java-specialagent-tracers-common</artifactId>
+        <version>${project.version}</version>
+      </dependency>
       <dependency>
         <groupId>javax.annotation</groupId>
         <artifactId>javax.annotation-api</artifactId>
