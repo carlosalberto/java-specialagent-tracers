@@ -5,11 +5,11 @@ Usage:
 ```sh
 mvn package
 java -cp MY_CLASSPATH:target/lightstep.jar \
-	-Dls.configurationFile=myconfig.properties \
+	-Dtracer.configurationFile=myconfig.properties \
 	-javaagent:specialagent.jar com.mycompany.MainClass
 ```
 
-Configuration file defaults to `tracer.properties`, and can be overriden with `ls.ConfigurationFile` as shown above. Configuration options can be specified as system properties as well.
+Configuration file defaults to `tracer.properties`, and can be overriden with `tracer.configurationFile` as shown above. Configuration options can be specified as system properties as well.
 
 Sample configuration file:
 
