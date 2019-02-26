@@ -12,3 +12,4 @@ _site/
 *.iml
 *.swp
 /opentracing-brave/nbproject/
+dependency-reduced-pom.xml

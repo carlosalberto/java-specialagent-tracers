@@ -1,22 +1,17 @@
 package io.opentracing.contrib.specialagent.lightstep;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.Map;
 import java.util.Properties;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 
 import com.lightstep.tracer.shared.Options;
+import io.opentracing.contrib.specialagent.common.Configuration;
 
 public final class TracerParameters {
   private TracerParameters() {}
 
   private final static Logger logger = Logger.getLogger(TracerParameters.class.getName());
-
-  final static String DEFAULT_CONFIGURATION_FILE_PATH = "tracer.properties";
-  final static String CONFIGURATION_FILE_KEY = "tracer.configurationFile";
 
   final static String HTTP = "http";
   final static String HTTPS = "https";
@@ -119,11 +114,7 @@ public final class TracerParameters {
 
   @SuppressWarnings("unchecked")
   public static Map<String, String> getParameters() {
-    String filePath = System.getProperty(CONFIGURATION_FILE_KEY);
-    if (filePath == null)
-      filePath = DEFAULT_CONFIGURATION_FILE_PATH;
-
-    Properties props = loadPropertiesFile(filePath);
+    Properties props = Configuration.loadConfigurationFile();
     loadSystemProperties(props);
 
     for (String propName: props.stringPropertyNames())
@@ -131,25 +122,6 @@ public final class TracerParameters {
 
     // A Properties object is expected to only contain String keys/values.
     return (Map)props;
-  }
-
-  static Properties loadPropertiesFile(String path) {
-    File file = new File(path);
-    if (!file.isFile()) {
-      return new Properties(); 
-    }
-
-    Properties props = new Properties();
-
-    try (FileInputStream stream = new FileInputStream(file)) {
-      props.load(stream);
-    } catch (IOException e) {
-      logger.log(Level.WARNING, "Failed to read the Tracer configuration file '" + path + "'");
-      logger.log(Level.WARNING, e.toString());
-    }
-
-    logger.log(Level.INFO, "Successfully loaded Tracer configuration file " + path);
-    return props;
   }
 
   static void loadSystemProperties(Properties props) {

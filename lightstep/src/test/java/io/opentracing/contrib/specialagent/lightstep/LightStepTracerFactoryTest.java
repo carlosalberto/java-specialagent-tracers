@@ -1,8 +1,6 @@
 package io.opentracing.contrib.specialagent.lightstep;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.util.Properties;
 
 import org.junit.After;
@@ -12,6 +10,8 @@ import org.junit.Test;
 import com.lightstep.tracer.jre.JRETracer;
 import com.lightstep.tracer.shared.Options;
 import io.opentracing.Tracer;
+import io.opentracing.contrib.specialagent.common.Configuration;
+import io.opentracing.contrib.specialagent.common.Utils;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -24,7 +24,7 @@ public class LightStepTracerFactoryTest
   @Before
   public void beforeTest() {
     // Clear all the parameters.
-    System.clearProperty(TracerParameters.CONFIGURATION_FILE_KEY);
+    System.clearProperty(Configuration.CONFIGURATION_FILE_KEY);
     for (String paramName: TracerParameters.ALL)
       System.clearProperty(paramName);
 
@@ -137,12 +137,8 @@ public class LightStepTracerFactoryTest
 
     File file = null;
     try {
-      file = File.createTempFile("myconfig", "properties");
-      System.setProperty(TracerParameters.CONFIGURATION_FILE_KEY, file.getAbsolutePath());
-
-      try (FileOutputStream stream = new FileOutputStream(file)) {
-        props.store(stream, "");
-      }
+      file = Utils.savePropertiesToTempFile(props);
+      System.setProperty(Configuration.CONFIGURATION_FILE_KEY, file.getAbsolutePath());
 
       tracer = new LightStepTracerFactory().getTracer();
       assertNotNull(tracer);
@@ -157,13 +153,9 @@ public class LightStepTracerFactoryTest
   public void getTracer_ConfigurationFilePropertyOverride() throws Exception {
     File file = null;
     try {
-      file = File.createTempFile("myconfig", "properties");
-      System.setProperty(TracerParameters.CONFIGURATION_FILE_KEY, file.getAbsolutePath());
-
       // Have an empty configuration file.
-      try (FileOutputStream stream = new FileOutputStream(file)) {
-        new Properties().store(stream, "");
-      }
+      file = Utils.savePropertiesToTempFile(new Properties());
+      System.setProperty(Configuration.CONFIGURATION_FILE_KEY, file.getAbsolutePath());
 
       // Should get a Tracer, as access token exists as a system property.
       tracer = new LightStepTracerFactory().getTracer();
@@ -179,7 +171,7 @@ public class LightStepTracerFactoryTest
   public void getTracer_ConfigurationFileInvalid() {
     System.clearProperty(TracerParameters.ACCESS_TOKEN);
 
-    System.setProperty(TracerParameters.CONFIGURATION_FILE_KEY, "/tmp/doesnotexist.123");
+    System.setProperty(Configuration.CONFIGURATION_FILE_KEY, "/tmp/doesnotexist.123");
     tracer = new LightStepTracerFactory().getTracer();
     assertNull(tracer); // No errors.
   }
